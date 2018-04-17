@@ -3,6 +3,7 @@ const program = require('commander');
 const { switchMap, tap } = require('rxjs/operators');
 
 const commit = require('./src/commit');
+const search = require('./src/search');
 
 program
   .version('0.1.0')
@@ -18,11 +19,11 @@ const args = program.args.slice(1);
 commit(process.cwd(), { args })
   .pipe(
     switchMap(() => {
-      // search(program.args)
-      console.log(program.args);
+      const username = program.args[0];
 
-      return program.args;
-    })
+      return search(username);
+    }),
+    tap(console.log)
   )
   .subscribe(
     (code = 0) => process.exit(code),
