@@ -26,5 +26,8 @@ commit(process.cwd(), { args })
   )
   .subscribe(
     (code = 0) => process.exit(code),
-    ({ code }) => process.exit(code)
+    ({ message, code }) => {
+      console.log(message);
+      process.exit(code);
+    }
   );
