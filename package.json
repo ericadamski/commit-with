@@ -1,0 +1,28 @@
+{
+  "name": "commit-with",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "jest"
+  },
+  "bin": {
+    "commit-with": "./index.js"
+  },
+  "description":
+    "A command line util to share the fame when pair programming by adding a co-authored message to a commit ",
+  "repository": "git@github.com:ericadamski/commit-with.git",
+  "author": "Eric Adamski <er.adamski@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.15.1",
+    "dedent": "^0.7.0",
+    "rxjs": "^5.5.10"
+  },
+  "devDependencies": {
+    "jest": "^22.4.3",
+    "nock": "^9.2.5",
+    "prettier": "^1.12.1"
+  },
+  "jest": {
+    "testMatch": ["**/?(*.)(spec|test).js?(x)"]
+  }
+}

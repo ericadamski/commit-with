@@ -1,0 +1,35 @@
+module.exports = {
+  login: "ericadamski",
+  id: 6516758,
+  avatar_url: "https://avatars0.githubusercontent.com/u/6516758?v=4",
+  gravatar_id: "",
+  url: "https://api.github.com/users/ericadamski",
+  html_url: "https://github.com/ericadamski",
+  followers_url: "https://api.github.com/users/ericadamski/followers",
+  following_url:
+    "https://api.github.com/users/ericadamski/following{/other_user}",
+  gists_url: "https://api.github.com/users/ericadamski/gists{/gist_id}",
+  starred_url:
+    "https://api.github.com/users/ericadamski/starred{/owner}{/repo}",
+  subscriptions_url: "https://api.github.com/users/ericadamski/subscriptions",
+  organizations_url: "https://api.github.com/users/ericadamski/orgs",
+  repos_url: "https://api.github.com/users/ericadamski/repos",
+  events_url: "https://api.github.com/users/ericadamski/events{/privacy}",
+  received_events_url:
+    "https://api.github.com/users/ericadamski/received_events",
+  type: "User",
+  site_admin: false,
+  name: "Eric Adamski",
+  company: "@MB3Online ",
+  blog: "https://ericadamski.github.com",
+  location: "Canada",
+  email: null,
+  hireable: null,
+  bio: "I talk to people about writing software. Sometimes I do it myself. 💻",
+  public_repos: 59,
+  public_gists: 8,
+  followers: 24,
+  following: 9,
+  created_at: "2014-01-27T17:34:53Z",
+  updated_at: "2018-04-14T18:28:36Z"
+};
