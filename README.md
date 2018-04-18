@@ -21,13 +21,15 @@ yarn global add commit-with
 ```
 ❯ commit-with --help
 
-  Usage: commit-with [options] <github-username> [git-args...]
+  Usage: commit-with [options] <github-username>
 
   Searches Github for the user and auto generates a co-authored tag for your commit message
 
   Options:
 
     -V, --version  output the version number
+    -a, --all      commit all changed files
+    -f, --force    ignore cached commit templates, look up user again on githup
     -h, --help     output usage information
 ```
 
@@ -44,7 +46,7 @@ Commit currently staged files
 Commit, and add using `-a` git commit flag
 
 ```
-❯ commit-with ericadamski -- -a
+❯ commit-with -a ericadamski
 ```
 
-![commit-with ericadamski -- -a](https://user-images.githubusercontent.com/6516758/38911862-02fb5c38-42a0-11e8-945f-f43723ac4462.gif)
+![commit-with -a ericadamski](https://user-images.githubusercontent.com/6516758/38911862-02fb5c38-42a0-11e8-945f-f43723ac4462.gif)
