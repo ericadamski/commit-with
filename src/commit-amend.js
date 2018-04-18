@@ -6,13 +6,14 @@ const { map, tap, filter } = require('rxjs/operators');
 
 function coauthor({ name, email }) {
   return dedent`
+
     Co-Authored-By: ${name} <${email}>
   `;
 }
 
-module.exports = function amend(cwd, user) {
+module.exports = function amend(cwd, hash, user) {
   let called = false;
-  const args = ['commit', '--amend', '-m', coauthor(user)];
+  const args = ['commit', '-C', hash, '-m', coauthor(user)];
 
   const child = process.spawn('git', args, { cwd, stdio: 'ignore' });
 
