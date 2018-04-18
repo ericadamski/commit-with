@@ -31,11 +31,7 @@ module.exports = function get(uri) {
     ),
     switchMap(r =>
       merge(
-        fromEvent(r, 'end').pipe(
-          map(() => buffer),
-          tap(console.log),
-          bufferToJson
-        ),
+        fromEvent(r, 'end').pipe(map(() => buffer), bufferToJson),
         fromEvent(r, 'error')
       )
     )

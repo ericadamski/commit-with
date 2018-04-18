@@ -3,6 +3,7 @@ const program = require('commander');
 const { switchMap, tap } = require('rxjs/operators');
 
 const commit = require('./src/commit');
+const amend = require('./src/commit-amend');
 const search = require('./src/search');
 
 program
@@ -23,7 +24,7 @@ commit(process.cwd(), { args })
 
       return search(username);
     }),
-    tap(console.log)
+    switchMap(amend)
   )
   .subscribe(
     (code = 0) => process.exit(code),
