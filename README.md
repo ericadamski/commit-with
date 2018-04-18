@@ -49,4 +49,4 @@ Commit, and add using `-a` git commit flag
 ❯ commit-with -a ericadamski
 ```
 
-![commit-with -a ericadamski](https://user-images.githubusercontent.com/6516758/38911862-02fb5c38-42a0-11e8-945f-f43723ac4462.gif)
+![commit-with -a ericadamski](https://user-images.githubusercontent.com/6516758/38931433-241b66a6-42e1-11e8-89eb-56ce69d7e6c9.gif)
