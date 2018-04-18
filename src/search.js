@@ -1,5 +1,5 @@
 const https = require('https');
-const { switchMap, zip, map, tap } = require('rxjs/operators');
+const { switchMap, zip, map } = require('rxjs/operators');
 
 const { GITHUB_URL } = require('./constants');
 const get = require('./helpers/get');
@@ -11,7 +11,6 @@ module.exports = function search(username) {
       'in:login'
     )}&type=Users`
   ).pipe(
-    tap(console.log),
     switchMap(({ total_count, items }) =>
       getEmail(username).pipe(zip((total_count > 0 && [items[0]]) || [{}]))
     ),
