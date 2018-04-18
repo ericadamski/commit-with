@@ -6,6 +6,12 @@ const get = require('./helpers/get');
 const getEmail = require('./get-email');
 
 module.exports = function search(username) {
+  console.log(
+    username,
+    `${GITHUB_URL}/search/users?q=${username}+${encodeURIComponent(
+      'in:login'
+    )}&type=Users`
+  );
   return get(
     `${GITHUB_URL}/search/users?q=${username}+${encodeURIComponent(
       'in:login'
