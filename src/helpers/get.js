@@ -11,11 +11,15 @@ const bufferToJson = require('./buffer-to-json');
 const _get = bindCallback(https.get);
 
 module.exports = function get(uri) {
-  console.log(url.parse(uri));
+  const { hostname, path } = url.parse(uri);
 
-  // return _get({ path, headers: { 'User-Agent': 'commit-with-cli' } }).pipe(
-  //   switchMap(r =>
-  //     merge(fromEvent(r, 'data').pipe(bufferToJson), fromEvent(r, 'error'))
-  //   )
-  // );
+  return _get({
+    hostname,
+    path,
+    headers: { 'User-Agent': 'commit-with-cli' }
+  }).pipe(
+    switchMap(r =>
+      merge(fromEvent(r, 'data').pipe(bufferToJson), fromEvent(r, 'error'))
+    )
+  );
 };
