@@ -21,8 +21,8 @@ module.exports = function get(uri) {
     headers: { 'User-Agent': 'commit-with-cli' }
   }).pipe(
     tap(r =>
-      fromEvent(r, 'data').subscribe(chunk =>
-        Buffer.concat([buffer || new Buffer(''), chunk])
+      fromEvent(r, 'data').subscribe(
+        chunk => (buffer = Buffer.concat([buffer || new Buffer(''), chunk]))
       )
     ),
     switchMap(r =>
