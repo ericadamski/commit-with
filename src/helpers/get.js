@@ -24,6 +24,8 @@ module.exports = function get(uri) {
       fromEvent(r, 'data').subscribe(chunk => {
         const b = buffer || Buffer.alloc(0);
 
+        console.log(buffer.toString(), chunk.toString());
+
         buffer = Buffer.concat([b, chunk], b.length + chunk.length);
       })
     ),
