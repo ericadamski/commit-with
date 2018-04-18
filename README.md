@@ -39,7 +39,7 @@ Commit currently staged files
 ❯ commit-with ericadamski
 ```
 
-<!-- put an image of that command working here -->
+![commit-with ericadamski](https://user-images.githubusercontent.com/6516758/38911822-c1695784-429f-11e8-9ff1-aff770794f6a.gif)
 
 Commit, and add using `-a` git commit flag
 
@@ -47,4 +47,4 @@ Commit, and add using `-a` git commit flag
 ❯ commit-with ericadamski -- -a
 ```
 
-<!-- put an image of that command working here -->
+![commit-with ericadamski -- -a](https://user-images.githubusercontent.com/6516758/38911862-02fb5c38-42a0-11e8-945f-f43723ac4462.gif)
