@@ -13,7 +13,7 @@ const _get = bindCallback(https.get);
 module.exports = function get(uri) {
   const { hostname, path } = url.parse(uri);
 
-  let buffer = new Buffer();
+  let buffer = new Buffer('');
 
   return _get({
     hostname,
