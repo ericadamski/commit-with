@@ -16,15 +16,12 @@ program
   .parse(process.argv);
 
 const args = program.args.slice(1);
+const cwd = process.cwd();
 
-commit(process.cwd(), { args })
+commit(cwd, { args })
   .pipe(
-    switchMap(() => {
-      const username = program.args[0];
-
-      return search(username);
-    }),
-    switchMap(amend)
+    switchMap(() => search(program.args[0])),
+    switchMap(user => amend(cwd, user))
   )
   .subscribe(
     (code = 0) => process.exit(code),
