@@ -7,10 +7,10 @@ const get = require('./helpers/get');
 function getPushEvents(source$) {
   return source$.pipe(
     map(events => {
-      console.log(events);
-      const filterdEvents = (events || []).filter(
-        ({ type }) => type === 'PushEvent'
-      );
+      let filterdEvents = [];
+
+      if (Array.isArray(events))
+        filterdEvents = events.filter(({ type }) => type === 'PushEvent');
 
       return filterdEvents.length > 0
         ? filterdEvents
