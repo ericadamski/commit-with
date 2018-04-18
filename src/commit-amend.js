@@ -13,7 +13,7 @@ function coauthor({ name, email }) {
 
 module.exports = function amend(cwd, hash, user) {
   let called = false;
-  const args = ['commit', '-C', hash, '-m', coauthor(user)];
+  const args = ['commit', '--squash', hash, '-m', coauthor(user)];
 
   console.log(args);
 
