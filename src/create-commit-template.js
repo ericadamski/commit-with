@@ -5,7 +5,7 @@ const { of } = require('rxjs/observable/of');
 const { bindNodeCallback } = require('rxjs/observable/bindNodeCallback');
 const { catchError, switchMap, mapTo, map } = require('rxjs/operators');
 
-const { TEMPLATE_ROOT } = require('./constants');
+const { TEMPLATE_ROOT, VERSION } = require('./constants');
 
 const access = bindNodeCallback(fs.access);
 const mkdir = bindNodeCallback(fs.mkdir);
@@ -18,8 +18,10 @@ function getTemplatePath(login) {
 function coauthor({ name, email }) {
   return dedent`
     # Commiting with commit-with 🤗
-
+    
     Co-Authored-By: ${name} <${email}>
+    
+    # ${Date.now()}-${VERSION}
   `;
 }
 

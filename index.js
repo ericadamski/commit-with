@@ -3,6 +3,7 @@ const program = require('commander');
 const { merge } = require('rxjs/observable/merge');
 const { switchMap, partition } = require('rxjs/operators');
 
+const { VERSION } = require('./src/constants');
 const commit = require('./src/commit');
 const {
   createCommitTemplate,
@@ -11,20 +12,30 @@ const {
 const search = require('./src/search');
 
 program
-  .version('0.1.0')
+  .version(VERSION)
   .name('commit-with')
-  .arguments('<github-username> -- [git-args...]')
+  .option('-a, --all', 'commit all changed files')
+  .option(
+    '-f, --force',
+    'ignore cached commit templates, look up user again on githup'
+  )
+  .arguments('<github-username>')
   .description(
     'Searches Github for the user and auto generates a co-authored tag for your commit message'
   )
   .parse(process.argv);
 
 const username = program.args[0];
-const args = program.args.slice(1);
+const args = [program.all && '-a'].filter(v => v);
 const cwd = process.cwd();
 
+if (!username) {
+  program.help();
+  process.exit(1);
+}
+
 const [filepath$, noFilepath$] = getCommitTemplateFor(username).pipe(
-  partition(filepath => filepath)
+  partition(filepath => filepath && !program.force)
 );
 
 merge(
