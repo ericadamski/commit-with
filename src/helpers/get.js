@@ -22,7 +22,7 @@ module.exports = function get(uri) {
   }).pipe(
     tap(r =>
       fromEvent(r, 'data').subscribe(chunk => {
-        const b = buffer || new Buffer('');
+        const b = buffer || Buffer.alloc(0);
 
         buffer = Buffer.concat([b, chunk], b.length + chunk.length);
       })
