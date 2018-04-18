@@ -13,18 +13,14 @@ const _get = bindCallback(https.get);
 module.exports = function get(uri) {
   const { hostname, path } = url.parse(uri);
 
-  let buffer;
+  let buffer = new Buffer();
 
   return _get({
     hostname,
     path,
     headers: { 'User-Agent': 'commit-with-cli' }
   }).pipe(
-    tap(r =>
-      fromEvent(r, 'data')
-        .pipe(tap(c => console.log('chunk', c)))
-        .subscribe(chunk => (buffer += chunk))
-    ),
+    tap(r => fromEvent(r, 'data').subscribe(chunk => buffer.concat(chunk))),
     switchMap(r =>
       merge(
         fromEvent(r, 'end').pipe(mapTo(buffer), tap(console.log), bufferToJson),
