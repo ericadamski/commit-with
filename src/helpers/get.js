@@ -20,10 +20,14 @@ module.exports = function get(uri) {
     path,
     headers: { 'User-Agent': 'commit-with-cli' }
   }).pipe(
-    tap(r => fromEvent(r, 'data').subscribe(chunk => (buffer += chunk))),
+    tap(r =>
+      fromEvent(r, 'data')
+        .pipe(tap(c => console.log('chunk', c)))
+        .subscribe(chunk => (buffer += chunk))
+    ),
     switchMap(r =>
       merge(
-        fromEvent(r, 'end').pipe(mapTo(buffer), bufferToJson),
+        fromEvent(r, 'end').pipe(mapTo(buffer), tap(console.log), bufferToJson),
         fromEvent(r, 'error')
       )
     )
