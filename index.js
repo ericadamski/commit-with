@@ -22,7 +22,6 @@ const cwd = process.cwd();
 commit(cwd, { args })
   .pipe(
     switchMap(() => search(program.args[0]).pipe(zip(getCommitHash(cwd)))),
-    tap(console.log),
     switchMap(([user, hash]) => amend(cwd, hash, user))
   )
   .subscribe(

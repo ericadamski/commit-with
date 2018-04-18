@@ -15,7 +15,9 @@ module.exports = function amend(cwd, hash, user) {
   let called = false;
   const args = ['commit', '-C', hash, '-m', coauthor(user)];
 
-  const child = process.spawn('git', args, { cwd, stdio: 'ignore' });
+  console.log(args);
+
+  const child = process.spawn('git', args, { cwd, stdio: 'inherit' });
 
   return merge(
     fromEvent(child, 'exit').pipe(
