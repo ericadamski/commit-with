@@ -3,11 +3,13 @@ const { fromEvent } = require('rxjs/observable/fromEvent');
 const { merge } = require('rxjs/observable/merge');
 const { map, tap, filter } = require('rxjs/operators');
 
-module.exports = function commit(cwd, options) {
+module.exports = function commit(cwd, { args = [], filepath }) {
   let called = false;
-  const args = ['commit', ...(options.args || [])];
 
-  const child = process.spawn('git', args, { cwd, stdio: 'inherit' });
+  const child = process.spawn('git', ['commit', ...args, '-t', filepath], {
+    cwd,
+    stdio: 'inherit'
+  });
 
   return merge(
     fromEvent(child, 'exit').pipe(

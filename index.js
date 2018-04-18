@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 const program = require('commander');
-const { switchMap, tap, zip } = require('rxjs/operators');
+const { merge } = require('rxjs/observable/merge');
+const { switchMap, partition } = require('rxjs/operators');
 
 const commit = require('./src/commit');
-const amend = require('./src/commit-amend');
-const getCommitHash = require('./src/get-commit-hash');
+const {
+  createCommitTemplate,
+  getCommitTemplateFor
+} = require('./src/create-commit-template');
 const search = require('./src/search');
 
 program
@@ -16,14 +19,23 @@ program
   )
   .parse(process.argv);
 
+const username = program.args[0];
 const args = program.args.slice(1);
 const cwd = process.cwd();
 
-commit(cwd, { args })
-  .pipe(
-    switchMap(() => search(program.args[0]).pipe(zip(getCommitHash(cwd)))),
-    switchMap(([user, hash]) => amend(cwd, hash, user))
+const [filepath$, noFilepath$] = getCommitTemplateFor(username).pipe(
+  partition(filepath => filepath)
+);
+
+merge(
+  filepath$,
+  noFilepath$.pipe(
+    switchMap(filepath =>
+      search(username).pipe(switchMap(createCommitTemplate))
+    )
   )
+)
+  .pipe(switchMap(filepath => commit(cwd, { args, filepath })))
   .subscribe(
     (code = 0) => process.exit(code),
     ({ message, code }) => {
