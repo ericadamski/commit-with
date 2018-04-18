@@ -9,8 +9,8 @@ const bufferToJson = require('./buffer-to-json');
 
 const _get = bindCallback(https.get);
 
-module.exports = function get(uri) {
-  return _get(uri).pipe(
+module.exports = function get(path) {
+  return _get({ path, headers: { 'User-Agent': 'commit-with-cli' } }).pipe(
     switchMap(r =>
       merge(fromEvent(r, 'data').pipe(bufferToJson), fromEvent(r, 'error'))
     )
