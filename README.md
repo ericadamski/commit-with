@@ -40,3 +40,11 @@ Commit currently staged files
 ```
 
 <!-- put an image of that command working here -->
+
+Commit, and add using `-a` git commit flag
+
+```
+❯ commit-with ericadamski -- -a
+```
+
+<!-- put an image of that command working here -->
