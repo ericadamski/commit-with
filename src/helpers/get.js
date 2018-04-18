@@ -4,7 +4,7 @@ const url = require('url');
 const { merge } = require('rxjs/observable/merge');
 const { fromEvent } = require('rxjs/observable/fromEvent');
 const { bindCallback } = require('rxjs/observable/bindCallback');
-const { map, switchMap, mapTo, tap } = require('rxjs/operators');
+const { map, switchMap } = require('rxjs/operators');
 
 const bufferToJson = require('./buffer-to-json');
 
