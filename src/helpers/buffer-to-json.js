@@ -3,8 +3,8 @@ const { map, catchError, tap } = require('rxjs/operators');
 
 module.exports = function bufferToJson(source$) {
   return source$.pipe(
-    tap(b => console.log(b.toString())),
-    map(buffer => JSON.parse(buffer.toString())),
-    catchError(() => of({}))
+    map(b => JSON.parse(b.toString())),
+    tap(console.log),
+    catchError(err => (console.log(err), of({})))
   );
 };
