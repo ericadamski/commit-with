@@ -4,7 +4,7 @@ const url = require('url');
 const { merge } = require('rxjs/observable/merge');
 const { fromEvent } = require('rxjs/observable/fromEvent');
 const { bindCallback } = require('rxjs/observable/bindCallback');
-const { map, switchMap, tap } = require('rxjs/operators');
+const { take, map, switchMap, tap } = require('rxjs/operators');
 
 const bufferToJson = require('./buffer-to-json');
 
@@ -33,7 +33,7 @@ module.exports = function get(uri) {
       merge(
         fromEvent(r, 'end').pipe(map(() => buffer), bufferToJson),
         fromEvent(r, 'error')
-      )
+      ).pipe(take(1))
     )
   );
 };

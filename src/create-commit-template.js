@@ -11,33 +11,38 @@ const access = bindNodeCallback(fs.access);
 const mkdir = bindNodeCallback(fs.mkdir);
 const writeFile = bindNodeCallback(fs.writeFile);
 
-function getTemplatePath(login) {
-  return path.join(TEMPLATE_ROOT, `.${login}`);
+function getTemplatePath(logins) {
+  return path.join(TEMPLATE_ROOT, `.${logins.join('-')}`);
 }
 
-function coauthor({ name, email }) {
+function coauthor(users) {
   return dedent`
     # Commiting with commit-with 🤗
     
-    Co-Authored-By: ${name} <${email}>
+    ${users
+      .map(({ name, email }) => `Co-Authored-By: ${name} <${email}>`)
+      .join('\n')}
     
     # ${Date.now()}-${VERSION}
   `;
 }
 
 module.exports = {
-  createCommitTemplate({ login, name, email }) {
+  createCommitTemplate(users) {
+    console.log({ users });
+
     return access(TEMPLATE_ROOT).pipe(
       catchError(() => mkdir(TEMPLATE_ROOT)),
       switchMap(() => {
-        const p = getTemplatePath(login);
+        const logins = Object.keys(users);
+        const p = getTemplatePath(logins);
 
-        return writeFile(p, coauthor({ name, email })).pipe(mapTo(p));
+        return writeFile(p, coauthor(Object.values(users))).pipe(mapTo(p));
       })
     );
   },
-  getCommitTemplateFor(login) {
-    const p = getTemplatePath(login);
+  getCommitTemplateFor(logins) {
+    const p = getTemplatePath(logins);
 
     return access(p).pipe(map(() => p), catchError(() => of(false)));
   }

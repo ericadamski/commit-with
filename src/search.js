@@ -1,9 +1,15 @@
 const https = require('https');
-const { switchMap, zip, map } = require('rxjs/operators');
+const { tap, switchMap, zip, map } = require('rxjs/operators');
 
 const { GITHUB_URL } = require('./constants');
 const get = require('./helpers/get');
 const getEmail = require('./get-email');
+
+function findMatchingUser(username, users) {
+  const filteredUsers = users.filter(({ login }) => login === username);
+
+  return filteredUsers && filteredUsers.length > 0 ? filteredUsers[0] : {};
+}
 
 module.exports = function search(username) {
   return get(
@@ -12,7 +18,9 @@ module.exports = function search(username) {
     )}&type=Users`
   ).pipe(
     switchMap(({ total_count, items }) =>
-      getEmail(username).pipe(zip((total_count > 0 && [items[0]]) || [{}]))
+      getEmail(username).pipe(
+        zip((total_count > 0 && [findMatchingUser(username, items)]) || [{}])
+      )
     ),
     switchMap(
       ([email, { url }]) =>
