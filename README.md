@@ -21,7 +21,7 @@ yarn global add commit-with
 ```
 ❯ commit-with --help
 
-  Usage: commit-with [options] <github-username>
+  Usage: commit-with [options] <github-usernames...>
 
   Searches Github for the user and auto generates a co-authored tag for your commit message
 
